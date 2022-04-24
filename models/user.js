@@ -1,13 +1,12 @@
-import { 
+const { 
     Sequelize, 
     Model, 
     DataTypes 
-} from 'sequelize';
-
+} = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
-const User = sequelize.define('User', {
+const User = sequelize.define('user', {
   username: DataTypes.STRING,
   password: DataTypes.STRING
 });
 
-module.exportrs = User;
+module.exports = User;
