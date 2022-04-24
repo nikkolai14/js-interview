@@ -3,19 +3,19 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
-const user = require(`${path.resolve('./')}/model/user`);
+const user = require(`${path.resolve('./')}/models/user`);
 const config = require('config');
 const secret = config.get('secret');
 
 module.exports = function() {
     passport.use(new LocalStrategy(
         {
-            usernameField: 'email',
+            usernameField: 'username',
             session: false
         },
-        async (email, password, done) => {
+        async (username, password, done) => {
             try {
-                const existingUser = await user.findOne({email: email, status: 'active', deleted: false});
+                const existingUser = await user.findOne({username: username});
                 if (!existingUser) {
                     return done(null, false);
                 }
@@ -57,7 +57,7 @@ module.exports = function() {
 
     passport.serializeUser(function(user, cb) {
         process.nextTick(function() {
-          cb(null, { email: user.email });
+          cb(null, { username: user.username });
         });
     });
 
