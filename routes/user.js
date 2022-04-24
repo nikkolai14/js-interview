@@ -19,4 +19,30 @@ router.post(
     user.signup
 )
 
+/**
+ *  process data by user 
+ *
+ * @apiHeader {String} Authorization Bearer Token
+ * 
+ * @apiSuccess {Boolean} state Success response
+ */
+router.post(
+    '/process',
+    passport.authenticate('jwt', { session: false }),
+    user.processData
+)
+
+/**
+ *  fetch data of user 
+ *
+ * @apiHeader {String} Authorization Bearer Token
+ *
+ * @apiSuccess {String[]} data list of users
+ */
+router.get(
+    '/fetch',
+    passport.authenticate('jwt', { session: false }),
+    user.getData
+)
+
 module.exports = router;
