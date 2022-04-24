@@ -6,6 +6,7 @@ const connectDB = require('./config/db');
 const config = require('config');
 const port = config.get('port');
 const passport = require("passport");
+const initIl8n = require('./config/il8n');
 
 require('./config/authentication')();
 
@@ -14,6 +15,7 @@ connectDB();
 app.use(express.json({extended: false}));
 app.use(cors());
 app.use(passport.initialize());
+app.use(initIl8n());
 app.use('/user', require('./routes/user'));
 
 app.listen(port, (error) => {
