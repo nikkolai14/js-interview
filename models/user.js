@@ -9,6 +9,14 @@ const User = sequelize.define('user', {
   password: DataTypes.STRING
 });
 
+User.prototype.validatePassword = function(password) {
+ return new Promise(resolve => {
+    bcrypt.compare(password, this.password).then(function(result) {
+        resolve(result);
+    });
+ });
+};
+
 (async () => {
   await sequelize.sync();
 })();

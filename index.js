@@ -16,7 +16,7 @@ app.use(express.json({extended: false}));
 app.use(cors());
 app.use(initIl8n());
 app.use(passport.initialize());
-app.use('/user', require('./routes/user'));
+app.use('/', require('./routes/user'));
 
 app.listen(port, (error) => {
     if (error) {

@@ -3,7 +3,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
-const user = require(`${path.resolve('./')}/models/user`);
+const User = require(`${path.resolve('./')}/models/user`);
 const config = require('config');
 const secret = config.get('secret');
 
@@ -15,12 +15,12 @@ module.exports = function() {
         },
         async (username, password, done) => {
             try {
-                const existingUser = await user.findOne({username: username});
-                if (!existingUser) {
+                const user = await User.findOne({where: {username: username}});
+                if (user === null) {
                     return done(null, false);
                 }
 
-                const validate = await existingUser.validatePassword(password);
+                const validate = await user.validatePassword(password);
 
                 if (!validate) {
                     return done(null, false);
@@ -41,13 +41,13 @@ module.exports = function() {
             },
             async (token, done) => {
                 try {
-                    const existingUser = await user.findOne({_id: token.id});
+                    const user = await User.findOne({where: {_id: token.id}});
 
-                    if (!existingUser) {
+                    if (user === null) {
                         return done(null, false);
                     }
 
-                    return done(null, existingUser);
+                    return done(null, user);
                 } catch (error) {
                     done(error);
                 }
