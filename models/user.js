@@ -9,4 +9,8 @@ const User = sequelize.define('user', {
   password: DataTypes.STRING
 });
 
+(async () => {
+  await sequelize.sync();
+})();
+
 module.exports = User;
