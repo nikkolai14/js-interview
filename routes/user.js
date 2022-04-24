@@ -18,3 +18,5 @@ router.post(
     signupValidations,
     user.signup
 )
+
+module.exports = router;
