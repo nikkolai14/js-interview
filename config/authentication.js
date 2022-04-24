@@ -41,7 +41,7 @@ module.exports = function() {
             },
             async (token, done) => {
                 try {
-                    const user = await User.findOne({where: {_id: token.id}});
+                    const user = await User.findOne({where: {id: token.id}});
 
                     if (user === null) {
                         return done(null, false);

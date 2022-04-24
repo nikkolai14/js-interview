@@ -11,7 +11,7 @@ const signupValidations = require(`${path.resolve('./')}/validations/user/signup
  * @apiParam {String} username username as email 
  * @apiParam {String} password Password
  *
- * @apiSuccess {Boolean} state Success response
+ * @apiSuccess {String} token Generated JWT token for authorization 
  */
 router.post(
     '/signup',

@@ -7,6 +7,7 @@ const config = require('config');
 const port = config.get('port');
 const passport = require("passport");
 const initIl8n = require('./config/il8n');
+const parseUserInJwtToken = require('./middlewares/parseUserInJwtToken');
 
 require('./config/authentication')();
 
@@ -14,6 +15,7 @@ connectDB();
 
 app.use(express.json({extended: false}));
 app.use(cors());
+app.use(parseUserInJwtToken);
 app.use(initIl8n());
 app.use(passport.initialize());
 app.use('/', require('./routes/user'));
