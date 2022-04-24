@@ -14,7 +14,6 @@ connectDB();
 app.use(express.json({extended: false}));
 app.use(cors());
 app.use(passport.initialize());
-
 app.use('/user', require('./routes/user'));
 
 app.listen(port, (error) => {
